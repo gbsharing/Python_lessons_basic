@@ -13,13 +13,64 @@
 
 # Подсказка: воспользоваться методом .format()
 
+fruits = ["яблоко", "банан", "киви", "арбуз"]
+print('Был такой список:')
+print(fruits)
+
+# Определяем максимальную длину
+maxLength = 0
+for fruit in fruits:
+    if len(fruit) > maxLength:
+        maxLength = len(fruit)
+
+print('Выводим так:')
+# Формируем результат
+for index, fruit in enumerate(fruits, 1):
+    print(f'{index}. {fruit:>{maxLength}}')
+input("Конец первой задачи\n")
 
 # Задача-2:
 # Даны два произвольные списка.
 # Удалите из первого списка элементы, присутствующие во втором списке.
 
+from random import randint
+print('Первый произвольный список:')
+lst1 = []
+for i in range(randint(5, 10)):
+    lst1.append(randint(0, 5))
+print(lst1)
+
+print('Второй произвольный список:')
+lst2 = []
+for i in range(randint(5, 10)):
+    lst2.append(randint(0, 5))
+print(lst2)
+
+print('Удаляем из первого списка элементы, присутствующие во втором списке:')
+# Проходим по неполной копии первого списка (так мы не будем пропускать значения)
+for el in lst1[:]:
+    if el in lst2:
+        lst1.remove(el)
+print(lst1)
+input("Конец второй задачи\n")
 
 # Задача-3:
 # Дан произвольный список из целых чисел.
 # Получите НОВЫЙ список из элементов исходного, выполнив следующие условия:
 # если элемент кратен двум, то разделить его на 4, если не кратен, то умножить на два.
+
+print('Произвольный список:')
+lst = []
+for i in range(randint(5, 10)):
+    lst.append(randint(1, 10))
+print(lst)
+
+print('НОВЫЙ список:')
+newLst = []
+for i in lst:
+    if i%2 == 0:
+        newLst.append(i / 4)
+    else:
+        newLst.append(i * 2)
+print(newLst)
+input("Конец третьей задачи\nВсего доброго!")
