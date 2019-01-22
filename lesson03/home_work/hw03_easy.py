@@ -5,8 +5,10 @@
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
 
 def my_round(number, ndigits):
-    pass
-
+    res, trunc = divmod(number * 10**ndigits, 1)
+    if trunc >= 0.5:
+        res += 1
+    return (res // 1) / 10**ndigits
 
 print(my_round(2.1234567, 5))
 print(my_round(2.1999967, 5))
@@ -20,7 +22,20 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить
 
 def lucky_ticket(ticket_number):
-    pass
+    first, second = divmod(ticket_number, 1000)
+    second = int(second * 1000)
+    
+    def sum_of_digit(number):
+        res = 0
+        str_number = str(number)
+        for str_digit in str_number:
+            res += int(str_digit)
+        return res
+
+    if sum_of_digit(first) == sum_of_digit(second):
+        return "It's lucky"
+    else:
+        return "It's not lucky"
 
 
 print(lucky_ticket(123006))
