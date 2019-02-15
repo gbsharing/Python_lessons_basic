@@ -6,9 +6,21 @@
 # квадратами элементов исходного списка
 # [1, 2, 4, 0] --> [1, 4, 16, 0]
 
+lst = [1, 2, 4, 0]
+sqr_lst = [i**2 for i in lst]
+print(sqr_lst)
+print()
+
 # Задание-2:
 # Даны два списка фруктов.
 # Получить список фруктов, присутствующих в обоих исходных списках.
+
+lst_fruit_1 = ['apple', 'banana', 'orange']
+lst_fruit_2 = ['apple', 'banana', 'cherry']
+
+lst_fruit = [i for i in lst_fruit_1 if i in lst_fruit_2]
+print(lst_fruit)
+print()
 
 # Задание-3:
 # Дан список, заполненный произвольными числами.
@@ -16,3 +28,8 @@
 # + Элемент кратен 3
 # + Элемент положительный
 # + Элемент не кратен 4
+
+import random
+lst = [random.randint(-100, 100) for _ in range(100)]
+new_lst = [i for i in lst if i > 0 and i % 3 == 0 and i % 4 != 0]
+print(new_lst)
