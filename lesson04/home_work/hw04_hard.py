@@ -13,6 +13,8 @@ matrix = [[1, 0, 8],
 
 # Суть сложности hard: Решите задачу в одну строку
 
+print([list(i) for i in list(zip(*matrix))])
+
 # Задание-2:
 # Найдите наибольшее произведение пяти последовательных цифр в 1000-значном числе.
 # Выведите произведение и индекс смещения первого числа последовательных 5-ти цифр.
@@ -38,7 +40,27 @@ number = """
 84580156166097919133875499200524063689912560717606
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450"""
+import re
 
+new_number = ""
+for i in number:
+    if re.match(r"\d", i):
+        new_number += i
+
+def mul_five_num(str):
+    result = 1
+    for i in str:
+        result *= int(i)
+    return result
+
+position = 0
+mul = mul_five_num(new_number[:5])
+for i in range(len(new_number)-4):
+    new_mul = mul_five_num(new_number[i:i+5])
+    if new_mul > mul:
+        mul = new_mul
+        position = i
+print('Смещение - ' + str(position) + '; произведение - ' + str(mul) + '; числа - ' + new_number[position:position+5])
 
 # Задание-3 (Ферзи):
 # Известно, что на доске 8×8 можно расставить 8 ферзей так, чтобы они не били
@@ -47,3 +69,52 @@ number = """
 # Программа получает на вход восемь пар чисел,
 # каждое число от 1 до 8 — координаты 8 ферзей.
 # Если ферзи не бьют друг друга, выведите слово NO, иначе выведите YES.
+
+import random
+
+numbers = [i for i in range(1, 9)]
+position = []
+while len(position) < 8:
+    i = random.randint(0, 7 - len(position))
+    new_pos = [len(position) + 1, numbers[i]]
+    if not (new_pos in position):
+        position.append(new_pos)
+        del numbers[i]
+
+#position = [[1, 7], [2, 5], [3, 3], [4, 1], [5, 6], [6, 8], [7, 2], [8, 4]]
+
+cell_with_queen = " ■"
+cell = " □"
+field = " "
+for i in range(8):
+    field += " " + str(i+1)
+for i in range(8):
+    field += '\n'
+    field += str(i+1)
+    for j in range(8):
+        if [i+1, j+1] in position:
+            field += cell_with_queen
+        else:
+            field += cell
+print(field)
+
+def check_strike_queen(a, b):
+    dx = abs(a[0] - b[0])
+    dy = abs(a[1] - b[1])
+    if (dx == dy) or (dx * dy == 0):
+        return True
+    else:
+        return False
+
+check_strike = False
+for i in range(7):
+    if check_strike:
+        break
+    for j in range(8 - i - 1):
+        if check_strike_queen(position[i], position[i + j + 1]):
+            check_strike = True
+            break
+if check_strike:
+    print("YES")
+else:
+    print("NO")
